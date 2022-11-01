@@ -21,13 +21,20 @@ def configure_routes(app):
         #use entries from the query string here but could also use json
         age = request.args.get('age')
         absences = request.args.get('absences')
-        health = request.args.get('health')
-        data = [[age], [health], [absences]]
+        studytime = request.args.get('studytime')
+        data = [[age], [studytime], [absences]]
         query_df = pd.DataFrame({
             'age': pd.Series(age),
-            'health': pd.Series(health),
+            'studytime': pd.Series(studytime),
             'absences': pd.Series(absences)
         })
         query = pd.get_dummies(query_df)
         prediction = clf.predict(query)
-        return jsonify(np.asscalar(prediction))
+        return jsonify(np.ndarray.item(prediction))
+    
+    # @app.route('/train')
+    # def train():
+
+    # @app.route('/wipe', methods=['GET'])
+    # def wipe():
+

@@ -13,3 +13,15 @@ def test_base_route():
 
     assert response.status_code == 200
     assert response.get_data() == b'try the predict route it is great!'
+
+def test_predict():
+    app = Flask(__name__)
+    configure_routes(app)
+    client = app.test_client()
+    url = '/predict?age=20&absences=3&studytime=300'
+
+    response = client.get(url)
+
+    assert response.get_data() == b'to young'
+
+
