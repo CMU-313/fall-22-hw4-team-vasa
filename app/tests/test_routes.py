@@ -12,7 +12,7 @@ def test_base_route():
     response = client.get(url)
 
     assert response.status_code == 200
-    assert response.get_data() == b'try the predict route it is great!'
+    assert response.get_data() == b'Welcome user!'
 
 def test_predict1():
     app = Flask(__name__)
@@ -48,5 +48,33 @@ def test_predict3():
     response = client.get(url)
 
     assert response.status_code == 500
+<<<<<<< Updated upstream
+=======
+
+def test_predict4():
+    app = Flask(__name__)
+    configure_routes(app)
+    client = app.test_client()
+    # Testing for an expected behavior/edge case
+    # Most likely the age wont be 1 but it should still run
+    url = '/predict?age=1&absences=2&studytime=6'
+
+    response = client.get(url)
+
+    assert response.status_code == 200
+
+
+def test_predict5():
+    app = Flask(__name__)
+    configure_routes(app)
+    client = app.test_client()
+    # Testing for an edge case
+    # The age should not be negative
+    url = '/predict?age=-20&absences=2&studytime=6'
+
+    response = client.get(url)
+
+    assert response.status_code == 400
+>>>>>>> Stashed changes
 
 
