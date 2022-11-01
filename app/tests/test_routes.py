@@ -12,7 +12,7 @@ def test_base_route():
     response = client.get(url)
 
     assert response.status_code == 200
-    assert response.get_data() == b'try the predict route it is great!'
+    assert response.get_data() == b'Welcome user!'
 
 def test_predict1():
     app = Flask(__name__)
@@ -24,7 +24,7 @@ def test_predict1():
 
     response = client.get(url)
 
-    assert response.status_code == 400
+    assert response.status_code == 500
 
 
 def test_predict2():
@@ -37,7 +37,7 @@ def test_predict2():
 
     response = client.get(url)
 
-    assert response.status_code == 400
+    assert response.status_code == 500
 
 
 def test_predict3():
@@ -50,7 +50,8 @@ def test_predict3():
 
     response = client.get(url)
 
-    assert response.status_code == 400
+    assert response.status_code == 500
+
 
 def test_predict4():
     app = Flask(__name__)
@@ -75,6 +76,7 @@ def test_predict5():
 
     response = client.get(url)
 
-    assert response.status_code == 400
+    assert response.status_code == 500
+
 
 
