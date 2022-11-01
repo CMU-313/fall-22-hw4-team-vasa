@@ -13,13 +13,15 @@ def configure_routes(app):
 
     @app.route('/')
     def hello():
-        return "try the predict route it is great!"
+        return "Welcome user!"
+        #do we need to add status stuff here??
 
 
     @app.route('/predict')
     def predict():
         #use entries from the query string here but could also use json
         age = request.args.get('age')
+        studytime = request.args.get('studytime')
         absences = request.args.get('absences')
         studytime = request.args.get('studytime')
         data = [[age], [studytime], [absences]]
@@ -37,3 +39,4 @@ def configure_routes(app):
 
     # @app.route('/wipe', methods=['GET'])
     # def wipe():
+
