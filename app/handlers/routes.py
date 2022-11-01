@@ -13,21 +13,23 @@ def configure_routes(app):
 
     @app.route('/')
     def hello():
-        return "try the predict route it is great!"
+        return "Welcome user!"
+        #do we need to add status stuff here??
 
 
     @app.route('/predict')
     def predict():
         #use entries from the query string here but could also use json
         age = request.args.get('age')
+        studytime = request.args.get('studytime')
         absences = request.args.get('absences')
-        health = request.args.get('health')
-        data = [[age], [health], [absences]]
+        data = [[age], [studytime], [absences]]
         query_df = pd.DataFrame({
             'age': pd.Series(age),
-            'health': pd.Series(health),
+            'studytime': pd.Series(studytime),
             'absences': pd.Series(absences)
+            
         })
         query = pd.get_dummies(query_df)
         prediction = clf.predict(query)
-        return jsonify(np.asscalar(prediction))
+        return jsonify(np.ndarray.item(prediction))
