@@ -1,0 +1,76 @@
+---
+openapi: 3.0.0
+info:
+  title: HW4 College Admissions ML API
+  description: |
+    This is an REST API server used to supplement our [microservice-based ML model](https://github.com/CMU-313/fall-22-hw4-team-vasa) in predicting CMU grad students' application statuses.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+- url: https://virtserver.swaggerhub.com/rmartini24/HW4-API/1.0.0
+  description: SwaggerHub API Auto Mocking
+- url: http://127.0.0.1:5000
+paths:
+  /:
+    get:
+      summary: Landing page, welcomes user to server
+      description: Displays welcome message or error message (if response is not 200)
+      responses:
+        "500":
+          description: Internal server error
+        "200":
+          description: error-free request
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: welcome user
+  /predict:
+    get:
+      summary: Predict a prospective student's final grade (G3 score)
+      description: Output the predicted a final grade (G3 score) when passed inputs of student's age, study time, and absences
+      parameters:
+      - name: age
+        in: query
+        description: Student's age (yrs)
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+      - name: studytime
+        in: query
+        description: Student's weekly study time (hrs)
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+      - name: absences
+        in: query
+        description: Student's number of school absences (days)
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+      responses:
+        "500":
+          description: Internal server error
+        "200":
+          description: error-free request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200'
+components:
+  schemas:
+    inline_response_200:
+      type: object
+      properties:
+        g3_score:
+          type: integer
+          description: Student's predicted final grade (G3 score)
+          example: 3
