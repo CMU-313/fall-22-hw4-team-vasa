@@ -109,18 +109,19 @@ def test_predict8():
     app = Flask(__name__)
     configure_routes(app)
     client = app.test_client()
-    url = '/predict?G1=20&G2=20&absences=2&studytime=6'
+    # G1 and G2 score must both be good for an accept
+    url = '/predict?G1=0&G2=10&absences=2&studytime=6'
 
     response = client.get(url)
 
     assert response.status_code == 200
-    assert response.get_data() == b'1\n'
+    assert response.get_data() == b'0\n'
 
 def test_predict9():
     app = Flask(__name__)
     configure_routes(app)
     client = app.test_client()
-    url = '/predict?G1=20&G2=20&absences=20&studytime=6'
+    url = '/predict?G1=0&G2=0&absences=20&studytime=6'
 
     response = client.get(url)
 
