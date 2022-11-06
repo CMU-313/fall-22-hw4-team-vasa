@@ -115,7 +115,6 @@ def test_predict8():
 
     response = client.get(url)
 
-    assert response.status_code == 200
     assert response.get_data() == b'Welcome user, you have been accepted!'
 
 def test_predict9():
@@ -128,7 +127,6 @@ def test_predict9():
 
     response = client.get(url)
 
-    assert response.status_code == 200
     assert response.get_data() == b'Welcome user, you have been rejected!'
 
 
@@ -142,7 +140,6 @@ def test_predict10():
 
     response = client.get(url)
 
-    assert response.status_code == 200
     assert response.get_data() == b'Welcome user, you have been rejected because you are too young!'
 
 
@@ -156,7 +153,6 @@ def test_predict11():
 
     response = client.get(url)
 
-    assert response.status_code == 200
     assert response.get_data() == b'Welcome user, you have been rejected because you are too young!'
 
 

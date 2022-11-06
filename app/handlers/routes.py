@@ -21,18 +21,37 @@ def configure_routes(app):
     def predict():
         #use entries from the query string here but could also use json
         age = request.args.get('age')
-        studytime = request.args.get('studytime')
         absences = request.args.get('absences')
         studytime = request.args.get('studytime')
-        data = [[age], [studytime], [absences]]
-        query_df = pd.DataFrame({
-            'studytime': pd.Series(studytime),
-            'absences': pd.Series(absences),
-            'age': pd.Series(age)
-        })
-        # query = pd.get_dummies()
-        prediction = clf.predict(query_df)
-        return jsonify(np.ndarray.item(prediction))
+        if int(age) >= 18:
+            data = [[age], [absences], [studytime]]
+            query_df = pd.DataFrame({
+                'age': pd.Series(age),
+                'absences': pd.Series(absences),
+                'studytime': pd.Series(studytime)
+            })
+            # query = pd.get_dummies()
+            prediction = clf.predict(query_df)
+            print(jsonify(np.ndarray.item(prediction)))
+            print(int(age)>18)
+            return jsonify(np.ndarray.item(prediction))
+        else:
+            # data = [[age], [absences], [studytime]]
+            # query_df = pd.DataFrame({
+            #     'age': pd.Series(age),
+            #     'absences': pd.Series(absences),
+            #     'studytime': pd.Series(studytime)
+            # })
+            # # query = pd.get_dummies()
+            # prediction = clf.predict(query_df)
+            # print(jsonify(np.ndarray.item(prediction)))
+            # print(int(age)>18)
+            # # return jsonify(np.ndarray.item(prediction))
+            return "Welcome user, you have been rejected because you are too young!"
+
+
+        # else:
+        #     return 
     
     # @app.route('/train')
     # def train():
