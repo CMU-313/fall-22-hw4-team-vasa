@@ -14,48 +14,32 @@ def configure_routes(app):
     @app.route('/')
     def hello():
         return "Welcome user!"
-        #do we need to add status stuff here??
-
 
     @app.route('/predict')
     def predict():
         #use entries from the query string here but could also use json
-        age = request.args.get('age')
+        G1 = request.args.get('G1')
+        G2 = request.args.get('G2')
         absences = request.args.get('absences')
         studytime = request.args.get('studytime')
-        if int(age) >= 18:
-            data = [[age], [absences], [studytime]]
-            query_df = pd.DataFrame({
-                'age': pd.Series(age),
-                'absences': pd.Series(absences),
-                'studytime': pd.Series(studytime)
-            })
-            # query = pd.get_dummies()
-            prediction = clf.predict(query_df)
-            print(jsonify(np.ndarray.item(prediction)))
-            print(int(age)>18)
-            return jsonify(np.ndarray.item(prediction))
-        else:
-            # data = [[age], [absences], [studytime]]
-            # query_df = pd.DataFrame({
-            #     'age': pd.Series(age),
-            #     'absences': pd.Series(absences),
-            #     'studytime': pd.Series(studytime)
-            # })
-            # # query = pd.get_dummies()
-            # prediction = clf.predict(query_df)
-            # print(jsonify(np.ndarray.item(prediction)))
-            # print(int(age)>18)
-            # # return jsonify(np.ndarray.item(prediction))
-            return "Welcome user, you have been rejected because you are too young!"
 
+        if not str.isdigit(G1):
+            return jsonify({}), 400
 
-        # else:
-        #     return 
-    
-    # @app.route('/train')
-    # def train():
+        if not str.isdigit(absences):
+            return jsonify({}), 400
 
-    # @app.route('/wipe', methods=['GET'])
-    # def wipe():
+        if not str.isdigit(studytime):
+            return jsonify({}), 400
+
+        data = [[G1], [G2], [absences], [studytime]]
+        query_df = pd.DataFrame({
+            'G1': pd.Series(G1),
+            'G2': pd.Series(G2),
+            'absences': pd.Series(absences),
+            'studytime': pd.Series(studytime)
+        })
+        
+        prediction = clf.predict(query_df)
+        return jsonify(np.ndarray.item(prediction))
 

@@ -24,7 +24,7 @@ def test_predict1():
 
     response = client.get(url)
 
-    assert response.status_code == 500
+    assert response.status_code == 400
 
 
 def test_predict2():
@@ -37,7 +37,7 @@ def test_predict2():
 
     response = client.get(url)
 
-    assert response.status_code == 500
+    assert response.status_code == 400
 
 
 def test_predict3():
@@ -50,7 +50,7 @@ def test_predict3():
 
     response = client.get(url)
 
-    assert response.status_code == 500
+    assert response.status_code == 400
 
 
 def test_predict4():
@@ -76,7 +76,7 @@ def test_predict5():
 
     response = client.get(url)
 
-    assert response.status_code == 500
+    assert response.status_code == 400
 
 
 def test_predict6():
@@ -89,7 +89,7 @@ def test_predict6():
 
     response = client.get(url)
 
-    assert response.status_code == 500
+    assert response.status_code == 400
 
 
 def test_predict7():
@@ -102,7 +102,7 @@ def test_predict7():
 
     response = client.get(url)
 
-    assert response.status_code == 500
+    assert response.status_code == 400
 
 
 def test_predict8():
