@@ -79,4 +79,84 @@ def test_predict5():
     assert response.status_code == 500
 
 
+def test_predict6():
+    app = Flask(__name__)
+    configure_routes(app)
+    client = app.test_client()
+    # Testing for an edge case
+    # The absences should not be negative
+    url = '/predict?age=20&absences=-2&studytime=6'
+
+    response = client.get(url)
+
+    assert response.status_code == 500
+
+
+def test_predict7():
+    app = Flask(__name__)
+    configure_routes(app)
+    client = app.test_client()
+    # Testing for an edge case
+    # The study time should not be negative
+    url = '/predict?age=20&absences=2&studytime=-6'
+
+    response = client.get(url)
+
+    assert response.status_code == 500
+
+
+def test_predict8():
+    app = Flask(__name__)
+    configure_routes(app)
+    client = app.test_client()
+    # Testing for an edge case
+    # The study time is more than absences so we should accept
+    url = '/predict?age=20&absences=2&studytime=6'
+
+    response = client.get(url)
+
+    assert response.status_code == 200
+    assert response.get_data() == b'Welcome user, you have been accepted!'
+
+def test_predict9():
+    app = Flask(__name__)
+    configure_routes(app)
+    client = app.test_client()
+    # Testing for an edge case
+    # The study time is less than absences so we should reject
+    url = '/predict?age=20&absences=10&studytime=6'
+
+    response = client.get(url)
+
+    assert response.status_code == 200
+    assert response.get_data() == b'Welcome user, you have been rejected!'
+
+
+def test_predict10():
+    app = Flask(__name__)
+    configure_routes(app)
+    client = app.test_client()
+    # Testing for an edge case
+    # The student is too young
+    url = '/predict?age=13&absences=10&studytime=6'
+
+    response = client.get(url)
+
+    assert response.status_code == 200
+    assert response.get_data() == b'Welcome user, you have been rejected because you are too young!'
+
+
+def test_predict11():
+    app = Flask(__name__)
+    configure_routes(app)
+    client = app.test_client()
+    # Testing for an edge case
+    # The student is too young
+    url = '/predict?age=13&absences=6&studytime=10'
+
+    response = client.get(url)
+
+    assert response.status_code == 200
+    assert response.get_data() == b'Welcome user, you have been rejected because you are too young!'
+
 
