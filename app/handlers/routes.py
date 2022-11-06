@@ -23,6 +23,16 @@ def configure_routes(app):
         age = request.args.get('age')
         absences = request.args.get('absences')
         studytime = request.args.get('studytime')
+
+        if not str.isdigit(age):
+            return jsonify({}), 400
+
+        if not str.isdigit(absences):
+            return jsonify({}), 400
+
+        if not str.isdigit(studytime):
+            return jsonify({}), 400
+
         if int(age) >= 18:
             data = [[age], [absences], [studytime]]
             query_df = pd.DataFrame({
