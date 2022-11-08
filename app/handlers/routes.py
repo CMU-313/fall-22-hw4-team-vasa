@@ -14,29 +14,32 @@ def configure_routes(app):
     @app.route('/')
     def hello():
         return "Welcome user!"
-        #do we need to add status stuff here??
-
 
     @app.route('/predict')
     def predict():
         #use entries from the query string here but could also use json
-        age = request.args.get('age')
-        studytime = request.args.get('studytime')
+        G1 = request.args.get('G1')
+        G2 = request.args.get('G2')
         absences = request.args.get('absences')
         studytime = request.args.get('studytime')
-        data = [[age], [studytime], [absences]]
+
+        if not str.isdigit(G1):
+            return jsonify({}), 400
+
+        if not str.isdigit(absences):
+            return jsonify({}), 400
+
+        if not str.isdigit(studytime):
+            return jsonify({}), 400
+
+        data = [[G1], [G2], [absences], [studytime]]
         query_df = pd.DataFrame({
-            'studytime': pd.Series(studytime),
+            'G1': pd.Series(G1),
+            'G2': pd.Series(G2),
             'absences': pd.Series(absences),
-            'age': pd.Series(age)
+            'studytime': pd.Series(studytime)
         })
-        # query = pd.get_dummies()
+        
         prediction = clf.predict(query_df)
         return jsonify(np.ndarray.item(prediction))
-    
-    # @app.route('/train')
-    # def train():
-
-    # @app.route('/wipe', methods=['GET'])
-    # def wipe():
 
