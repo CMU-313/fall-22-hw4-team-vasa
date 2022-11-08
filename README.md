@@ -1,3 +1,4 @@
+
 # HW4 Starter Code and Instructions
 
 Please consult the [homework assignment](https://cmu-313.github.io//assignments/hw4) for additional context and instructions for this code.
@@ -107,4 +108,4 @@ pipenv run pytest
 ## Model Updates
 
 In our new and improved model, we use the G1 and G2 score since they more accurately represent a student's capabilities than 
-their age and health. Additionally, we add on study time as an additional variable since generally, students who study more are usually more desirable by the college application process. Using these additional factors, we used the Jupyter Notebook to retrain the model using the same sklearn method. This improved the accuracy from 0.53 to 0.99.
+their age and health. Additionally, we add on study time as an additional variable since generally, students who study more are usually more desirable by the college application process. Using these additional factors, we used the Jupyter Notebook to retrain the model using the same sklearn method. This improved the accuracy from 0.53 to 0.99. 
